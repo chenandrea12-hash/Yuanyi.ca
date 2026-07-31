@@ -64,6 +64,12 @@
 
   .flower svg { display: block; }
 
+  /* Smoothly fade from one flower palette to the next. */
+  .flower .petal,
+  .flower .center {
+    transition: fill 1.5s ease-in-out;
+  }
+
   .flower.f1 { top: 12%;  left: 14%; width: 90px;  animation-duration: 5.5s; }
   .flower.f2 { top: 20%;  right: 12%; width: 70px;  animation-duration: 4.5s; animation-delay: .5s; }
   .flower.f3 { bottom: 14%; left: 10%; width: 100px; animation-duration: 6s;   animation-delay: 1s; }
@@ -131,6 +137,11 @@
 
   @media (prefers-reduced-motion: reduce) {
     .logo, .flower, .butterfly, .wings { animation: none !important; }
+
+    .flower .petal,
+    .flower .center {
+      transition: none;
+    }
   }
 </style>
 </head>
@@ -139,93 +150,93 @@
 
     <div class="flower f1">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="16" fill="#f2a6c6"/>
-        <circle cx="30" cy="50" r="16" fill="#f2a6c6"/>
-        <circle cx="70" cy="50" r="16" fill="#f2a6c6"/>
-        <circle cx="40" cy="68" r="16" fill="#f2a6c6"/>
-        <circle cx="60" cy="68" r="16" fill="#f2a6c6"/>
-        <circle cx="50" cy="52" r="14" fill="#f7d774"/>
+        <circle class="petal" cx="50" cy="30" r="16" fill="#f2a6c6"/>
+        <circle class="petal" cx="30" cy="50" r="16" fill="#f2a6c6"/>
+        <circle class="petal" cx="70" cy="50" r="16" fill="#f2a6c6"/>
+        <circle class="petal" cx="40" cy="68" r="16" fill="#f2a6c6"/>
+        <circle class="petal" cx="60" cy="68" r="16" fill="#f2a6c6"/>
+        <circle class="center" cx="50" cy="52" r="14" fill="#f7d774"/>
         <rect x="47" y="70" width="6" height="26" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f2">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="15" fill="#c9a6e8"/>
-        <circle cx="30" cy="50" r="15" fill="#c9a6e8"/>
-        <circle cx="70" cy="50" r="15" fill="#c9a6e8"/>
-        <circle cx="40" cy="68" r="15" fill="#c9a6e8"/>
-        <circle cx="60" cy="68" r="15" fill="#c9a6e8"/>
-        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <circle class="petal" cx="50" cy="30" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="30" cy="50" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="70" cy="50" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="40" cy="68" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="60" cy="68" r="15" fill="#c9a6e8"/>
+        <circle class="center" cx="50" cy="52" r="13" fill="#fff1a8"/>
         <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f3">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="16" fill="#f6b6a6"/>
-        <circle cx="30" cy="50" r="16" fill="#f6b6a6"/>
-        <circle cx="70" cy="50" r="16" fill="#f6b6a6"/>
-        <circle cx="40" cy="68" r="16" fill="#f6b6a6"/>
-        <circle cx="60" cy="68" r="16" fill="#f6b6a6"/>
-        <circle cx="50" cy="52" r="14" fill="#f7d774"/>
+        <circle class="petal" cx="50" cy="30" r="16" fill="#f6b6a6"/>
+        <circle class="petal" cx="30" cy="50" r="16" fill="#f6b6a6"/>
+        <circle class="petal" cx="70" cy="50" r="16" fill="#f6b6a6"/>
+        <circle class="petal" cx="40" cy="68" r="16" fill="#f6b6a6"/>
+        <circle class="petal" cx="60" cy="68" r="16" fill="#f6b6a6"/>
+        <circle class="center" cx="50" cy="52" r="14" fill="#f7d774"/>
         <rect x="47" y="70" width="6" height="28" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f4">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="15" fill="#f2a6c6"/>
-        <circle cx="30" cy="50" r="15" fill="#f2a6c6"/>
-        <circle cx="70" cy="50" r="15" fill="#f2a6c6"/>
-        <circle cx="40" cy="68" r="15" fill="#f2a6c6"/>
-        <circle cx="60" cy="68" r="15" fill="#f2a6c6"/>
-        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <circle class="petal" cx="50" cy="30" r="15" fill="#f2a6c6"/>
+        <circle class="petal" cx="30" cy="50" r="15" fill="#f2a6c6"/>
+        <circle class="petal" cx="70" cy="50" r="15" fill="#f2a6c6"/>
+        <circle class="petal" cx="40" cy="68" r="15" fill="#f2a6c6"/>
+        <circle class="petal" cx="60" cy="68" r="15" fill="#f2a6c6"/>
+        <circle class="center" cx="50" cy="52" r="13" fill="#fff1a8"/>
         <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f5">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="15" fill="#c9a6e8"/>
-        <circle cx="30" cy="50" r="15" fill="#c9a6e8"/>
-        <circle cx="70" cy="50" r="15" fill="#c9a6e8"/>
-        <circle cx="40" cy="68" r="15" fill="#c9a6e8"/>
-        <circle cx="60" cy="68" r="15" fill="#c9a6e8"/>
-        <circle cx="50" cy="52" r="13" fill="#f7d774"/>
+        <circle class="petal" cx="50" cy="30" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="30" cy="50" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="70" cy="50" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="40" cy="68" r="15" fill="#c9a6e8"/>
+        <circle class="petal" cx="60" cy="68" r="15" fill="#c9a6e8"/>
+        <circle class="center" cx="50" cy="52" r="13" fill="#f7d774"/>
         <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f6">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="30" r="15" fill="#f6b6a6"/>
-        <circle cx="30" cy="50" r="15" fill="#f6b6a6"/>
-        <circle cx="70" cy="50" r="15" fill="#f6b6a6"/>
-        <circle cx="40" cy="68" r="15" fill="#f6b6a6"/>
-        <circle cx="60" cy="68" r="15" fill="#f6b6a6"/>
-        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <circle class="petal" cx="50" cy="30" r="15" fill="#f6b6a6"/>
+        <circle class="petal" cx="30" cy="50" r="15" fill="#f6b6a6"/>
+        <circle class="petal" cx="70" cy="50" r="15" fill="#f6b6a6"/>
+        <circle class="petal" cx="40" cy="68" r="15" fill="#f6b6a6"/>
+        <circle class="petal" cx="60" cy="68" r="15" fill="#f6b6a6"/>
+        <circle class="center" cx="50" cy="52" r="13" fill="#fff1a8"/>
         <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
       </g></svg>
     </div>
 
     <div class="flower f7">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="35" r="14" fill="#f2a6c6"/>
-        <circle cx="34" cy="52" r="14" fill="#f2a6c6"/>
-        <circle cx="66" cy="52" r="14" fill="#f2a6c6"/>
-        <circle cx="50" cy="65" r="14" fill="#f2a6c6"/>
-        <circle cx="50" cy="52" r="12" fill="#f7d774"/>
+        <circle class="petal" cx="50" cy="35" r="14" fill="#f2a6c6"/>
+        <circle class="petal" cx="34" cy="52" r="14" fill="#f2a6c6"/>
+        <circle class="petal" cx="66" cy="52" r="14" fill="#f2a6c6"/>
+        <circle class="petal" cx="50" cy="65" r="14" fill="#f2a6c6"/>
+        <circle class="center" cx="50" cy="52" r="12" fill="#f7d774"/>
       </g></svg>
     </div>
 
     <div class="flower f8">
       <svg viewBox="0 0 100 100"><g>
-        <circle cx="50" cy="35" r="14" fill="#c9a6e8"/>
-        <circle cx="34" cy="52" r="14" fill="#c9a6e8"/>
-        <circle cx="66" cy="52" r="14" fill="#c9a6e8"/>
-        <circle cx="50" cy="65" r="14" fill="#c9a6e8"/>
-        <circle cx="50" cy="52" r="12" fill="#fff1a8"/>
+        <circle class="petal" cx="50" cy="35" r="14" fill="#c9a6e8"/>
+        <circle class="petal" cx="34" cy="52" r="14" fill="#c9a6e8"/>
+        <circle class="petal" cx="66" cy="52" r="14" fill="#c9a6e8"/>
+        <circle class="petal" cx="50" cy="65" r="14" fill="#c9a6e8"/>
+        <circle class="center" cx="50" cy="52" r="12" fill="#fff1a8"/>
       </g></svg>
     </div>
 
@@ -262,5 +273,58 @@
     </div>
 
   </div>
+
+  <script>
+    const flowerPalettes = [
+      {
+        petals: ['#f2a6c6', '#c9a6e8', '#f6b6a6', '#f4a7b9'],
+        centers: ['#f7d774', '#fff1a8']
+      },
+      {
+        petals: ['#79c7c5', '#8fb9e8', '#9fd3a8', '#74b9d1'],
+        centers: ['#ffe08a', '#fff0b5']
+      },
+      {
+        petals: ['#f29c75', '#f7c56b', '#e98b8b', '#f4ad73'],
+        centers: ['#fff0a8', '#ffd166']
+      },
+      {
+        petals: ['#b79ced', '#d29be8', '#a7a6ed', '#cf8fd8'],
+        centers: ['#f8dfa1', '#fff3bd']
+      },
+      {
+        petals: ['#f48fb1', '#ffb4a2', '#e6a4d8', '#ff9aa2'],
+        centers: ['#ffe082', '#fff2ac']
+      }
+    ];
+
+    const flowers = document.querySelectorAll('.flower');
+    let paletteIndex = 0;
+
+    function applyFlowerPalette() {
+      const palette = flowerPalettes[paletteIndex];
+
+      flowers.forEach((flower, flowerIndex) => {
+        const petalColor =
+          palette.petals[flowerIndex % palette.petals.length];
+        const centerColor =
+          palette.centers[flowerIndex % palette.centers.length];
+
+        flower.querySelectorAll('.petal').forEach((petal) => {
+          petal.setAttribute('fill', petalColor);
+        });
+
+        flower.querySelectorAll('.center').forEach((center) => {
+          center.setAttribute('fill', centerColor);
+        });
+      });
+
+      paletteIndex = (paletteIndex + 1) % flowerPalettes.length;
+    }
+
+    // Keep the original colors for the first 20 seconds,
+    // then switch palettes every 20 seconds.
+    setInterval(applyFlowerPalette, 20000);
+  </script>
 </body>
 </html>
