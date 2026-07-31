@@ -28,9 +28,10 @@
   body {
     background: linear-gradient(
       180deg,
-      #fff7e8 0%,
-      #dff3ff 100%
+      var(--current-bg-top) 0%,
+      var(--current-bg-bottom) 100%
     );
+    transition: background 3s ease-in-out;
   }
 
   .stage {
@@ -331,6 +332,40 @@
 
     // Rotate every flower to the next color every 10 seconds.
     setInterval(updateFlowerColors, 10000);
+
+    const skyColors = [
+      { top: '#16213d', bottom: '#090d18' }, // Deep night
+      { top: '#25345a', bottom: '#151b32' }, // Night
+      { top: '#4a587f', bottom: '#2e3558' }, // Early dawn
+      { top: '#8f91bd', bottom: '#665f91' }, // Dawn
+      { top: '#ffd8c2', bottom: '#d8e7ff' }, // Sunrise
+      { top: '#e9f7ff', bottom: '#cbe9ff' }, // Morning
+      { top: '#fff7e8', bottom: '#dff3ff' }  // Daylight
+    ];
+
+    let skyIndex = 0;
+
+    function updateSkyBackground() {
+      const sky = skyColors[skyIndex];
+
+      document.documentElement.style.setProperty(
+        '--current-bg-top',
+        sky.top
+      );
+
+      document.documentElement.style.setProperty(
+        '--current-bg-bottom',
+        sky.bottom
+      );
+
+      skyIndex = (skyIndex + 1) % skyColors.length;
+    }
+
+    // Start at nighttime and move gradually toward daylight.
+    updateSkyBackground();
+
+    // Change the background every 10 seconds.
+    setInterval(updateSkyBackground, 10000);
   </script>
 </body>
 </html>
