@@ -300,10 +300,158 @@
     100% { opacity: 0; }
   }
 
+
+  /* ---------- Touch / drag interaction ---------- */
+  .stage > * {
+    touch-action: none;
+  }
+
+  .draggable {
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .draggable.is-dragging {
+    cursor: grabbing;
+  }
+
+  /* ---------- Night stars ---------- */
+  .stars {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 42%;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2.5s ease-in-out;
+  }
+
+  .stars.visible {
+    opacity: 1;
+  }
+
+  .star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff7d6;
+    box-shadow: 0 0 8px rgba(255, 247, 214, 0.9);
+    animation: twinkle 1.8s ease-in-out infinite alternate;
+  }
+
+  .star:nth-child(2n) {
+    width: 3px;
+    height: 3px;
+    animation-duration: 2.4s;
+  }
+
+  .star:nth-child(3n) {
+    width: 5px;
+    height: 5px;
+    animation-duration: 1.3s;
+  }
+
+  @keyframes twinkle {
+    0% {
+      opacity: 0.2;
+      transform: scale(0.65);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+
+  /* Night girl: enter, pause for 5 seconds, then slowly disappear. */
+  .girl.active.from-left {
+    animation: girlNightFromLeft 11s ease-in-out forwards;
+  }
+
+  .girl.active.from-right {
+    animation: girlNightFromRight 11s ease-in-out forwards;
+  }
+
+  @keyframes girlNightFromLeft {
+    0% {
+      left: -180px;
+      opacity: 0;
+      transform: translateY(8px) rotate(-2deg);
+    }
+    9% {
+      opacity: 1;
+    }
+    32% {
+      left: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    77% {
+      left: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      left: calc(50% - 75px);
+      opacity: 0;
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+
+  @keyframes girlNightFromRight {
+    0% {
+      right: -180px;
+      opacity: 0;
+      transform: translateY(8px) rotate(2deg);
+    }
+    9% {
+      opacity: 1;
+    }
+    32% {
+      right: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    77% {
+      right: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      right: calc(50% - 75px);
+      opacity: 0;
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+
 </style>
 </head>
 <body>
   <div class="stage">
+
+    <div class="stars" aria-hidden="true">
+      <span class="star" style="left:6%;top:18%;animation-delay:.2s"></span>
+      <span class="star" style="left:12%;top:8%;animation-delay:1.1s"></span>
+      <span class="star" style="left:18%;top:28%;animation-delay:.6s"></span>
+      <span class="star" style="left:24%;top:13%;animation-delay:1.7s"></span>
+      <span class="star" style="left:31%;top:35%;animation-delay:.4s"></span>
+      <span class="star" style="left:38%;top:18%;animation-delay:1.3s"></span>
+      <span class="star" style="left:45%;top:7%;animation-delay:.8s"></span>
+      <span class="star" style="left:52%;top:29%;animation-delay:1.9s"></span>
+      <span class="star" style="left:59%;top:14%;animation-delay:.1s"></span>
+      <span class="star" style="left:66%;top:33%;animation-delay:1.4s"></span>
+      <span class="star" style="left:73%;top:9%;animation-delay:.9s"></span>
+      <span class="star" style="left:80%;top:25%;animation-delay:1.6s"></span>
+      <span class="star" style="left:87%;top:15%;animation-delay:.5s"></span>
+      <span class="star" style="left:93%;top:31%;animation-delay:1.2s"></span>
+      <span class="star" style="left:9%;top:39%;animation-delay:1.8s"></span>
+      <span class="star" style="left:28%;top:4%;animation-delay:.3s"></span>
+      <span class="star" style="left:49%;top:40%;animation-delay:1.5s"></span>
+      <span class="star" style="left:69%;top:4%;animation-delay:.7s"></span>
+      <span class="star" style="left:84%;top:39%;animation-delay:2s"></span>
+    </div>
+
 
     <div class="flower f1">
       <svg viewBox="0 0 100 100"><g>
@@ -613,7 +761,9 @@
     ];
 
     const sun = document.querySelector('.sun');
+    const stars = document.querySelector('.stars');
     let skyIndex = 0;
+    let isNight = false;
 
     function restartSunAnimation() {
       sun.classList.remove('visible');
@@ -634,10 +784,14 @@
         sky.bottom
       );
 
+      isNight = !sky.daylight;
+
       if (sky.daylight) {
         restartSunAnimation();
+        stars.classList.remove('visible');
       } else {
         sun.classList.remove('visible');
+        stars.classList.add('visible');
       }
 
       skyIndex = (skyIndex + 1) % skyColors.length;
@@ -650,6 +804,8 @@
     let girlFromLeft = true;
 
     function playGirlAnimation() {
+      if (!isNight) return;
+
       girl.classList.remove('active', 'from-left', 'from-right');
       void girl.offsetWidth;
 
@@ -659,8 +815,82 @@
       girlFromLeft = !girlFromLeft;
     }
 
-    // First appearance after 40 seconds, then every 40 seconds.
+    // During nighttime, she appears every 40 seconds.
     setInterval(playGirlAnimation, 40000);
+
+    // ---------- Drag every visible object with mouse or touch ----------
+    const draggableObjects = document.querySelectorAll(
+      '.flower, .butterfly, .logo, .sun, .girl'
+    );
+
+    draggableObjects.forEach((element) => {
+      element.classList.add('draggable');
+
+      let pointerId = null;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      element.addEventListener('pointerdown', (event) => {
+        if (element.classList.contains('sun') &&
+            !element.classList.contains('visible')) return;
+
+        if (element.classList.contains('girl') &&
+            !element.classList.contains('active')) return;
+
+        pointerId = event.pointerId;
+        element.setPointerCapture(pointerId);
+
+        const rect = element.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+
+        element.classList.add('is-dragging');
+
+        element.style.position = 'fixed';
+        element.style.left = `${rect.left}px`;
+        element.style.top = `${rect.top}px`;
+        element.style.right = 'auto';
+        element.style.bottom = 'auto';
+        element.style.width = `${rect.width}px`;
+        element.style.height = `${rect.height}px`;
+        element.style.margin = '0';
+        element.style.transform = 'none';
+        element.style.animation = 'none';
+        element.style.zIndex = '20';
+      });
+
+      element.addEventListener('pointermove', (event) => {
+        if (event.pointerId !== pointerId) return;
+
+        const maxX = window.innerWidth - element.offsetWidth;
+        const maxY = window.innerHeight - element.offsetHeight;
+
+        const nextX = Math.min(
+          Math.max(0, event.clientX - offsetX),
+          Math.max(0, maxX)
+        );
+
+        const nextY = Math.min(
+          Math.max(0, event.clientY - offsetY),
+          Math.max(0, maxY)
+        );
+
+        element.style.left = `${nextX}px`;
+        element.style.top = `${nextY}px`;
+      });
+
+      function endDrag(event) {
+        if (event.pointerId !== pointerId) return;
+
+        element.classList.remove('is-dragging');
+        element.releasePointerCapture(pointerId);
+        pointerId = null;
+      }
+
+      element.addEventListener('pointerup', endDrag);
+      element.addEventListener('pointercancel', endDrag);
+    });
+
   </script>
 </body>
 </html>
