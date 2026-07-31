@@ -154,6 +154,152 @@
       transition: none;
     }
   }
+
+  /* ---------- Daytime sun ---------- */
+  .sun {
+    position: absolute;
+    top: 5%;
+    right: -90px;
+    width: 68px;
+    height: 68px;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 18px rgba(255, 211, 91, 0.75));
+  }
+
+  .sun.visible {
+    opacity: 1;
+    animation: sunTravel 10s linear forwards;
+  }
+
+  @keyframes sunTravel {
+    0% {
+      right: -90px;
+      top: 8%;
+      transform: rotate(0deg) scale(0.9);
+    }
+    50% {
+      right: calc(50% - 34px);
+      top: 3%;
+      transform: rotate(180deg) scale(1);
+    }
+    100% {
+      right: calc(100% + 20px);
+      top: 8%;
+      transform: rotate(360deg) scale(0.9);
+    }
+  }
+
+  /* ---------- Cartoon girl ---------- */
+  .girl {
+    position: absolute;
+    bottom: 3%;
+    left: -180px;
+    width: 150px;
+    height: 230px;
+    z-index: 8;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, left, right, opacity;
+  }
+
+  .girl.from-right {
+    left: auto;
+    right: -180px;
+  }
+
+  .girl.active.from-left {
+    animation: girlFromLeft 10s ease-in-out forwards;
+  }
+
+  .girl.active.from-right {
+    animation: girlFromRight 10s ease-in-out forwards;
+  }
+
+  .girl .wave-arm {
+    transform-box: fill-box;
+    transform-origin: 50% 10%;
+  }
+
+  .girl.active .wave-arm {
+    animation: waveArm 0.55s ease-in-out 5 alternate;
+    animation-delay: 3.1s;
+  }
+
+  .girl .smile {
+    opacity: 0;
+  }
+
+  .girl.active .smile {
+    animation: smileOn 2.7s ease forwards;
+    animation-delay: 3s;
+  }
+
+  @keyframes girlFromLeft {
+    0% {
+      left: -180px;
+      opacity: 0;
+      transform: translateY(8px) rotate(-2deg);
+    }
+    8% {
+      opacity: 1;
+    }
+    32% {
+      left: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    68% {
+      left: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      left: calc(100% + 40px);
+      opacity: 0;
+      transform: translateY(10px) rotate(3deg);
+    }
+  }
+
+  @keyframes girlFromRight {
+    0% {
+      right: -180px;
+      opacity: 0;
+      transform: translateY(8px) rotate(2deg);
+    }
+    8% {
+      opacity: 1;
+    }
+    32% {
+      right: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    68% {
+      right: calc(50% - 75px);
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    100% {
+      right: calc(100% + 40px);
+      opacity: 0;
+      transform: translateY(10px) rotate(-3deg);
+    }
+  }
+
+  @keyframes waveArm {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-34deg); }
+  }
+
+  @keyframes smileOn {
+    0%   { opacity: 0; }
+    18%  { opacity: 1; }
+    82%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
 </style>
 </head>
 <body>
@@ -251,6 +397,106 @@
       </g></svg>
     </div>
 
+
+    <div class="sun" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <g fill="none" stroke="#f5b82e" stroke-width="6" stroke-linecap="round">
+          <line x1="50" y1="3" x2="50" y2="18"/>
+          <line x1="50" y1="82" x2="50" y2="97"/>
+          <line x1="3" y1="50" x2="18" y2="50"/>
+          <line x1="82" y1="50" x2="97" y2="50"/>
+          <line x1="16" y1="16" x2="27" y2="27"/>
+          <line x1="73" y1="73" x2="84" y2="84"/>
+          <line x1="16" y1="84" x2="27" y2="73"/>
+          <line x1="73" y1="27" x2="84" y2="16"/>
+        </g>
+        <circle cx="50" cy="50" r="27" fill="#ffd75e"/>
+        <circle cx="41" cy="46" r="3" fill="#75552a"/>
+        <circle cx="59" cy="46" r="3" fill="#75552a"/>
+        <path d="M40 58 Q50 67 60 58" fill="none" stroke="#75552a"
+              stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="girl from-left" aria-hidden="true">
+      <svg viewBox="0 0 160 245">
+        <!-- long hair behind the body -->
+        <path d="M45 45
+                 Q80 10 115 45
+                 Q132 75 120 135
+                 L112 202
+                 Q80 224 48 202
+                 L40 135
+                 Q28 75 45 45Z"
+              fill="#4d2f2b"/>
+
+        <!-- legs -->
+        <rect x="61" y="181" width="15" height="43" rx="7" fill="#f3c8ad"/>
+        <rect x="88" y="181" width="15" height="43" rx="7" fill="#f3c8ad"/>
+        <ellipse cx="66" cy="225" rx="16" ry="7" fill="#6b4c78"/>
+        <ellipse cx="99" cy="225" rx="16" ry="7" fill="#6b4c78"/>
+
+        <!-- dress -->
+        <path d="M55 111 Q80 98 105 111 L118 190
+                 Q80 204 42 190Z"
+              fill="#d995c6"/>
+        <path d="M59 115 Q80 130 101 115"
+              fill="none" stroke="#f8d8eb" stroke-width="5"/>
+
+        <!-- left arm -->
+        <path d="M55 119 Q39 143 44 171"
+              fill="none" stroke="#f3c8ad" stroke-width="14"
+              stroke-linecap="round"/>
+
+        <!-- waving arm -->
+        <g class="wave-arm">
+          <path d="M105 120 Q126 102 132 78"
+                fill="none" stroke="#f3c8ad" stroke-width="14"
+                stroke-linecap="round"/>
+          <circle cx="134" cy="72" r="9" fill="#f3c8ad"/>
+          <path d="M131 65 L127 55 M135 64 L135 53 M139 66 L144 57"
+                fill="none" stroke="#f3c8ad" stroke-width="3.5"
+                stroke-linecap="round"/>
+        </g>
+
+        <!-- face -->
+        <ellipse cx="80" cy="75" rx="37" ry="41" fill="#f3c8ad"/>
+
+        <!-- hair framing face -->
+        <path d="M43 70 Q44 33 80 31 Q116 33 117 70
+                 Q105 49 83 46 Q61 48 43 70Z"
+              fill="#4d2f2b"/>
+        <path d="M47 63 Q42 92 53 109"
+              fill="none" stroke="#4d2f2b" stroke-width="14"
+              stroke-linecap="round"/>
+        <path d="M113 63 Q119 92 107 109"
+              fill="none" stroke="#4d2f2b" stroke-width="14"
+              stroke-linecap="round"/>
+
+        <!-- eyes -->
+        <path d="M61 77 Q67 72 73 77"
+              fill="none" stroke="#4a342f" stroke-width="3"
+              stroke-linecap="round"/>
+        <path d="M87 77 Q93 72 99 77"
+              fill="none" stroke="#4a342f" stroke-width="3"
+              stroke-linecap="round"/>
+
+        <!-- cheeks -->
+        <ellipse cx="59" cy="89" rx="7" ry="3.5" fill="#e99ba2" opacity=".65"/>
+        <ellipse cx="101" cy="89" rx="7" ry="3.5" fill="#e99ba2" opacity=".65"/>
+
+        <!-- normal mouth -->
+        <path d="M74 94 Q80 98 86 94"
+              fill="none" stroke="#a95f67" stroke-width="2.5"
+              stroke-linecap="round"/>
+
+        <!-- animated smiling mouth -->
+        <path class="smile" d="M69 92 Q80 106 91 92"
+              fill="none" stroke="#a95f67" stroke-width="3.5"
+              stroke-linecap="round"/>
+      </svg>
+    </div>
+
     <h1 class="logo">Yuanyi</h1>
 
     <div class="butterfly b1">
@@ -334,16 +580,46 @@
     setInterval(updateFlowerColors, 10000);
 
     const skyColors = [
-      { top: '#16213d', bottom: '#090d18' }, // Deep night
-      { top: '#25345a', bottom: '#151b32' }, // Night
-      { top: '#4a587f', bottom: '#2e3558' }, // Early dawn
-      { top: '#8f91bd', bottom: '#665f91' }, // Dawn
-      { top: '#ffd8c2', bottom: '#d8e7ff' }, // Sunrise
-      { top: '#e9f7ff', bottom: '#cbe9ff' }, // Morning
-      { top: '#fff7e8', bottom: '#dff3ff' }  // Daylight
+      {
+        top: '#fff7e8',
+        bottom: '#dff3ff',
+        daylight: true
+      },
+      {
+        top: '#ffd8a8',
+        bottom: '#f7bfd4',
+        daylight: true
+      },
+      {
+        top: '#4a587f',
+        bottom: '#2e3558',
+        daylight: false
+      },
+      {
+        top: '#16213d',
+        bottom: '#090d18',
+        daylight: false
+      },
+      {
+        top: '#8f91bd',
+        bottom: '#665f91',
+        daylight: false
+      },
+      {
+        top: '#ffd8c2',
+        bottom: '#d8e7ff',
+        daylight: true
+      }
     ];
 
+    const sun = document.querySelector('.sun');
     let skyIndex = 0;
+
+    function restartSunAnimation() {
+      sun.classList.remove('visible');
+      void sun.offsetWidth;
+      sun.classList.add('visible');
+    }
 
     function updateSkyBackground() {
       const sky = skyColors[skyIndex];
@@ -358,14 +634,33 @@
         sky.bottom
       );
 
+      if (sky.daylight) {
+        restartSunAnimation();
+      } else {
+        sun.classList.remove('visible');
+      }
+
       skyIndex = (skyIndex + 1) % skyColors.length;
     }
 
-    // Start at nighttime and move gradually toward daylight.
     updateSkyBackground();
-
-    // Change the background every 10 seconds.
     setInterval(updateSkyBackground, 10000);
+
+    const girl = document.querySelector('.girl');
+    let girlFromLeft = true;
+
+    function playGirlAnimation() {
+      girl.classList.remove('active', 'from-left', 'from-right');
+      void girl.offsetWidth;
+
+      girl.classList.add(girlFromLeft ? 'from-left' : 'from-right');
+      girl.classList.add('active');
+
+      girlFromLeft = !girlFromLeft;
+    }
+
+    // First appearance after 40 seconds, then every 40 seconds.
+    setInterval(playGirlAnimation, 40000);
   </script>
 </body>
 </html>
