@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yuanyi</title>
+<meta name="description" content="Yuanyi.ca" />
+<style>
+  :root {
+    --bg-top: #fdf6f0;
+    --bg-bottom: #f6e9f0;
+    --logo-color: #3d2b3d;
+    --accent: #d46a8f;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+    font-family: 'Georgia', 'Times New Roman', serif;
+  }
+
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------- Logo ---------- */
+  .logo {
+    position: relative;
+    z-index: 5;
+    font-size: clamp(3rem, 12vw, 8rem);
+    letter-spacing: 0.08em;
+    color: var(--logo-color);
+    text-shadow: 0 2px 18px rgba(212, 106, 143, 0.35);
+    animation: breathe 6s ease-in-out infinite;
+    user-select: none;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+
+  /* ---------- Flowers ---------- */
+  .flower {
+    position: absolute;
+    transform-origin: center bottom;
+    animation: sway 5s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+
+  .flower svg { display: block; }
+
+  .flower.f1 { top: 12%;  left: 14%; width: 90px;  animation-duration: 5.5s; }
+  .flower.f2 { top: 20%;  right: 12%; width: 70px;  animation-duration: 4.5s; animation-delay: .5s; }
+  .flower.f3 { bottom: 14%; left: 10%; width: 100px; animation-duration: 6s;   animation-delay: 1s; }
+  .flower.f4 { bottom: 10%; right: 16%; width: 80px;  animation-duration: 5s;   animation-delay: .3s; }
+  .flower.f5 { top: 45%;  left: 4%;  width: 60px;  animation-duration: 4.8s; animation-delay: .8s; }
+  .flower.f6 { top: 50%;  right: 5%; width: 65px;  animation-duration: 5.2s; animation-delay: 1.2s; }
+  .flower.f7 { bottom: 30%; left: 24%; width: 45px; animation-duration: 4s; animation-delay: .6s; }
+  .flower.f8 { top: 30%;  right: 26%; width: 50px; animation-duration: 4.3s; animation-delay: .2s; }
+
+  /* ---------- Butterflies ---------- */
+  .butterfly {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    will-change: transform;
+    animation: flutter 3.2s ease-in-out infinite;
+  }
+
+  .butterfly .wings {
+    width: 100%;
+    height: 100%;
+    animation: flap 0.35s ease-in-out infinite alternate;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes flap {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0.55); }
+  }
+
+  .b1 { animation-name: path1; animation-duration: 14s; }
+  .b2 { animation-name: path2; animation-duration: 18s; }
+  .b3 { animation-name: path3; animation-duration: 16s; }
+
+  @keyframes path1 {
+    0%   { top: 20%; left: -5%;  transform: rotate(0deg); }
+    20%  { top: 12%; left: 25%;  transform: rotate(8deg); }
+    40%  { top: 30%; left: 50%;  transform: rotate(-6deg); }
+    60%  { top: 15%; left: 75%;  transform: rotate(10deg); }
+    80%  { top: 40%; left: 95%;  transform: rotate(-4deg); }
+    100% { top: 20%; left: 110%; transform: rotate(0deg); }
+  }
+
+  @keyframes path2 {
+    0%   { top: 70%; left: 105%; transform: rotate(180deg); }
+    25%  { top: 60%; left: 75%;  transform: rotate(170deg); }
+    50%  { top: 78%; left: 50%;  transform: rotate(190deg); }
+    75%  { top: 58%; left: 25%;  transform: rotate(175deg); }
+    100% { top: 70%; left: -10%; transform: rotate(180deg); }
+  }
+
+  @keyframes path3 {
+    0%   { top: 85%; left: 10%;  transform: rotate(-20deg); }
+    15%  { top: 55%; left: 30%;  transform: rotate(20deg); }
+    35%  { top: 25%; left: 55%;  transform: rotate(-15deg); }
+    55%  { top: 60%; left: 70%;  transform: rotate(25deg); }
+    75%  { top: 35%; left: 85%;  transform: rotate(-10deg); }
+    100% { top: 85%; left: 105%; transform: rotate(-20deg); }
+  }
+
+  @keyframes flutter {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo, .flower, .butterfly, .wings { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="flower f1">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="16" fill="#f2a6c6"/>
+        <circle cx="30" cy="50" r="16" fill="#f2a6c6"/>
+        <circle cx="70" cy="50" r="16" fill="#f2a6c6"/>
+        <circle cx="40" cy="68" r="16" fill="#f2a6c6"/>
+        <circle cx="60" cy="68" r="16" fill="#f2a6c6"/>
+        <circle cx="50" cy="52" r="14" fill="#f7d774"/>
+        <rect x="47" y="70" width="6" height="26" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f2">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="15" fill="#c9a6e8"/>
+        <circle cx="30" cy="50" r="15" fill="#c9a6e8"/>
+        <circle cx="70" cy="50" r="15" fill="#c9a6e8"/>
+        <circle cx="40" cy="68" r="15" fill="#c9a6e8"/>
+        <circle cx="60" cy="68" r="15" fill="#c9a6e8"/>
+        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f3">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="16" fill="#f6b6a6"/>
+        <circle cx="30" cy="50" r="16" fill="#f6b6a6"/>
+        <circle cx="70" cy="50" r="16" fill="#f6b6a6"/>
+        <circle cx="40" cy="68" r="16" fill="#f6b6a6"/>
+        <circle cx="60" cy="68" r="16" fill="#f6b6a6"/>
+        <circle cx="50" cy="52" r="14" fill="#f7d774"/>
+        <rect x="47" y="70" width="6" height="28" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f4">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="15" fill="#f2a6c6"/>
+        <circle cx="30" cy="50" r="15" fill="#f2a6c6"/>
+        <circle cx="70" cy="50" r="15" fill="#f2a6c6"/>
+        <circle cx="40" cy="68" r="15" fill="#f2a6c6"/>
+        <circle cx="60" cy="68" r="15" fill="#f2a6c6"/>
+        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f5">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="15" fill="#c9a6e8"/>
+        <circle cx="30" cy="50" r="15" fill="#c9a6e8"/>
+        <circle cx="70" cy="50" r="15" fill="#c9a6e8"/>
+        <circle cx="40" cy="68" r="15" fill="#c9a6e8"/>
+        <circle cx="60" cy="68" r="15" fill="#c9a6e8"/>
+        <circle cx="50" cy="52" r="13" fill="#f7d774"/>
+        <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f6">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="30" r="15" fill="#f6b6a6"/>
+        <circle cx="30" cy="50" r="15" fill="#f6b6a6"/>
+        <circle cx="70" cy="50" r="15" fill="#f6b6a6"/>
+        <circle cx="40" cy="68" r="15" fill="#f6b6a6"/>
+        <circle cx="60" cy="68" r="15" fill="#f6b6a6"/>
+        <circle cx="50" cy="52" r="13" fill="#fff1a8"/>
+        <rect x="47" y="70" width="6" height="24" fill="#7fae6b"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f7">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="35" r="14" fill="#f2a6c6"/>
+        <circle cx="34" cy="52" r="14" fill="#f2a6c6"/>
+        <circle cx="66" cy="52" r="14" fill="#f2a6c6"/>
+        <circle cx="50" cy="65" r="14" fill="#f2a6c6"/>
+        <circle cx="50" cy="52" r="12" fill="#f7d774"/>
+      </g></svg>
+    </div>
+
+    <div class="flower f8">
+      <svg viewBox="0 0 100 100"><g>
+        <circle cx="50" cy="35" r="14" fill="#c9a6e8"/>
+        <circle cx="34" cy="52" r="14" fill="#c9a6e8"/>
+        <circle cx="66" cy="52" r="14" fill="#c9a6e8"/>
+        <circle cx="50" cy="65" r="14" fill="#c9a6e8"/>
+        <circle cx="50" cy="52" r="12" fill="#fff1a8"/>
+      </g></svg>
+    </div>
+
+    <h1 class="logo">Yuanyi</h1>
+
+    <div class="butterfly b1">
+      <svg class="wings" viewBox="0 0 60 60">
+        <g fill="#e8935f">
+          <path d="M30 30 C12 8, -2 12, 6 30 C-2 48, 12 52, 30 30 Z"/>
+          <path d="M30 30 C48 8, 62 12, 54 30 C62 48, 48 52, 30 30 Z"/>
+        </g>
+        <rect x="28.5" y="16" width="3" height="28" rx="1.5" fill="#4a3423"/>
+      </svg>
+    </div>
+
+    <div class="butterfly b2">
+      <svg class="wings" viewBox="0 0 60 60">
+        <g fill="#7fb8d9">
+          <path d="M30 30 C12 8, -2 12, 6 30 C-2 48, 12 52, 30 30 Z"/>
+          <path d="M30 30 C48 8, 62 12, 54 30 C62 48, 48 52, 30 30 Z"/>
+        </g>
+        <rect x="28.5" y="16" width="3" height="28" rx="1.5" fill="#4a3423"/>
+      </svg>
+    </div>
+
+    <div class="butterfly b3">
+      <svg class="wings" viewBox="0 0 60 60">
+        <g fill="#d17fc9">
+          <path d="M30 30 C12 8, -2 12, 6 30 C-2 48, 12 52, 30 30 Z"/>
+          <path d="M30 30 C48 8, 62 12, 54 30 C62 48, 48 52, 30 30 Z"/>
+        </g>
+        <rect x="28.5" y="16" width="3" height="28" rx="1.5" fill="#4a3423"/>
+      </svg>
+    </div>
+
+  </div>
+</body>
+</html>
