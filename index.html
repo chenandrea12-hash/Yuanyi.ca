@@ -11,6 +11,8 @@
     --bg-bottom: #f6e9f0;
     --logo-color: #3d2b3d;
     --accent: #d46a8f;
+    --current-bg-top: #fff7e8;
+    --current-bg-bottom: #dff3ff;
   }
 
   * { box-sizing: border-box; }
@@ -20,8 +22,18 @@
     padding: 0;
     height: 100%;
     overflow: hidden;
-    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
     font-family: 'Georgia', 'Times New Roman', serif;
+  }
+
+  body {
+    background: linear-gradient(
+      180deg,
+      var(--current-bg-top) 0%,
+      var(--current-bg-bottom) 100%
+    );
+    transition:
+      background 3s ease-in-out,
+      color 3s ease-in-out;
   }
 
   .stage {
@@ -42,6 +54,7 @@
     color: var(--logo-color);
     text-shadow: 0 2px 18px rgba(212, 106, 143, 0.35);
     animation: breathe 6s ease-in-out infinite;
+    transition: color 3s ease-in-out, text-shadow 3s ease-in-out;
     user-select: none;
   }
 
@@ -277,38 +290,95 @@
   <script>
     const flowerPalettes = [
       {
-        petals: ['#f2a6c6', '#c9a6e8', '#f6b6a6', '#f4a7b9'],
+        petals: ['#f2a6c6', '#f7b2d0', '#e899bd', '#f5bfd5'],
         centers: ['#f7d774', '#fff1a8']
       },
       {
-        petals: ['#79c7c5', '#8fb9e8', '#9fd3a8', '#74b9d1'],
-        centers: ['#ffe08a', '#fff0b5']
+        petals: ['#c9a6e8', '#b995df', '#d5b5ef', '#ad8bd8'],
+        centers: ['#ffe38f', '#fff0b5']
       },
       {
-        petals: ['#f29c75', '#f7c56b', '#e98b8b', '#f4ad73'],
+        petals: ['#79c7c5', '#6eb8b6', '#91d4d2', '#5fb0ad'],
+        centers: ['#ffe082', '#fff1a8']
+      },
+      {
+        petals: ['#8fb9e8', '#79a9df', '#a4c8ef', '#6f9fd5'],
+        centers: ['#ffd978', '#fff0a8']
+      },
+      {
+        petals: ['#f6b36d', '#f3a459', '#ffc585', '#e99648'],
         centers: ['#fff0a8', '#ffd166']
       },
       {
-        petals: ['#b79ced', '#d29be8', '#a7a6ed', '#cf8fd8'],
-        centers: ['#f8dfa1', '#fff3bd']
+        petals: ['#ee8d82', '#f29f96', '#e77b70', '#f5ada5'],
+        centers: ['#ffe08a', '#fff1b2']
       },
       {
-        petals: ['#f48fb1', '#ffb4a2', '#e6a4d8', '#ff9aa2'],
-        centers: ['#ffe082', '#fff2ac']
+        petals: ['#9fd3a8', '#8bc797', '#b3dfba', '#77ba84'],
+        centers: ['#ffe082', '#fff4bd']
+      }
+    ];
+
+    const backgroundPalettes = [
+      {
+        top: '#fff7e8',
+        bottom: '#dff3ff',
+        logo: '#3d2b3d',
+        shadow: 'rgba(212, 106, 143, 0.35)'
+      },
+      {
+        top: '#ffe8c7',
+        bottom: '#f8d8df',
+        logo: '#493246',
+        shadow: 'rgba(211, 115, 139, 0.38)'
+      },
+      {
+        top: '#ffd6b0',
+        bottom: '#d7c5e8',
+        logo: '#43304d',
+        shadow: 'rgba(129, 97, 163, 0.4)'
+      },
+      {
+        top: '#b8c9e8',
+        bottom: '#8b83b8',
+        logo: '#302b4f',
+        shadow: 'rgba(70, 60, 120, 0.42)'
+      },
+      {
+        top: '#7785ad',
+        bottom: '#4d4b78',
+        logo: '#f7ecff',
+        shadow: 'rgba(245, 222, 255, 0.42)'
+      },
+      {
+        top: '#414d72',
+        bottom: '#282743',
+        logo: '#fff1fa',
+        shadow: 'rgba(255, 217, 239, 0.48)'
+      },
+      {
+        top: '#1d2946',
+        bottom: '#111426',
+        logo: '#fff4fb',
+        shadow: 'rgba(255, 224, 243, 0.52)'
       }
     ];
 
     const flowers = document.querySelectorAll('.flower');
+    const logo = document.querySelector('.logo');
+    const root = document.documentElement;
+
     let paletteIndex = 0;
 
-    function applyFlowerPalette() {
-      const palette = flowerPalettes[paletteIndex];
+    function applyScenePalette() {
+      const flowerPalette = flowerPalettes[paletteIndex];
+      const backgroundPalette = backgroundPalettes[paletteIndex];
 
       flowers.forEach((flower, flowerIndex) => {
         const petalColor =
-          palette.petals[flowerIndex % palette.petals.length];
+          flowerPalette.petals[flowerIndex % flowerPalette.petals.length];
         const centerColor =
-          palette.centers[flowerIndex % palette.centers.length];
+          flowerPalette.centers[flowerIndex % flowerPalette.centers.length];
 
         flower.querySelectorAll('.petal').forEach((petal) => {
           petal.setAttribute('fill', petalColor);
@@ -319,12 +389,21 @@
         });
       });
 
+      root.style.setProperty('--current-bg-top', backgroundPalette.top);
+      root.style.setProperty('--current-bg-bottom', backgroundPalette.bottom);
+      logo.style.color = backgroundPalette.logo;
+      logo.style.textShadow =
+        `0 2px 18px ${backgroundPalette.shadow}`;
+
       paletteIndex = (paletteIndex + 1) % flowerPalettes.length;
     }
 
-    // Keep the original colors for the first 20 seconds,
-    // then switch palettes every 20 seconds.
-    setInterval(applyFlowerPalette, 20000);
+    // Start with the first palette immediately.
+    applyScenePalette();
+
+    // Change flower colors and move the background gradually
+    // from daylight to nighttime every 5 seconds.
+    setInterval(applyScenePalette, 5000);
   </script>
 </body>
 </html>
