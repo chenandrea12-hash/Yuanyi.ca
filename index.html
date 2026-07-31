@@ -28,12 +28,9 @@
   body {
     background: linear-gradient(
       180deg,
-      var(--current-bg-top) 0%,
-      var(--current-bg-bottom) 100%
+      #fff7e8 0%,
+      #dff3ff 100%
     );
-    transition:
-      background 3s ease-in-out,
-      color 3s ease-in-out;
   }
 
   .stage {
@@ -288,97 +285,34 @@
   </div>
 
   <script>
-    const flowerPalettes = [
-      {
-        petals: ['#f2a6c6', '#f7b2d0', '#e899bd', '#f5bfd5'],
-        centers: ['#f7d774', '#fff1a8']
-      },
-      {
-        petals: ['#c9a6e8', '#b995df', '#d5b5ef', '#ad8bd8'],
-        centers: ['#ffe38f', '#fff0b5']
-      },
-      {
-        petals: ['#79c7c5', '#6eb8b6', '#91d4d2', '#5fb0ad'],
-        centers: ['#ffe082', '#fff1a8']
-      },
-      {
-        petals: ['#8fb9e8', '#79a9df', '#a4c8ef', '#6f9fd5'],
-        centers: ['#ffd978', '#fff0a8']
-      },
-      {
-        petals: ['#f6b36d', '#f3a459', '#ffc585', '#e99648'],
-        centers: ['#fff0a8', '#ffd166']
-      },
-      {
-        petals: ['#ee8d82', '#f29f96', '#e77b70', '#f5ada5'],
-        centers: ['#ffe08a', '#fff1b2']
-      },
-      {
-        petals: ['#9fd3a8', '#8bc797', '#b3dfba', '#77ba84'],
-        centers: ['#ffe082', '#fff4bd']
-      }
+    const flowerColors = [
+      '#f2a6c6', // pink
+      '#c9a6e8', // purple
+      '#79c7c5', // teal
+      '#8fb9e8', // blue
+      '#f6b36d', // orange
+      '#ee8d82', // coral
+      '#9fd3a8', // green
+      '#f3df72'  // yellow
     ];
 
-    const backgroundPalettes = [
-      {
-        top: '#fff7e8',
-        bottom: '#dff3ff',
-        logo: '#3d2b3d',
-        shadow: 'rgba(212, 106, 143, 0.35)'
-      },
-      {
-        top: '#ffe8c7',
-        bottom: '#f8d8df',
-        logo: '#493246',
-        shadow: 'rgba(211, 115, 139, 0.38)'
-      },
-      {
-        top: '#ffd6b0',
-        bottom: '#d7c5e8',
-        logo: '#43304d',
-        shadow: 'rgba(129, 97, 163, 0.4)'
-      },
-      {
-        top: '#b8c9e8',
-        bottom: '#8b83b8',
-        logo: '#302b4f',
-        shadow: 'rgba(70, 60, 120, 0.42)'
-      },
-      {
-        top: '#7785ad',
-        bottom: '#4d4b78',
-        logo: '#f7ecff',
-        shadow: 'rgba(245, 222, 255, 0.42)'
-      },
-      {
-        top: '#414d72',
-        bottom: '#282743',
-        logo: '#fff1fa',
-        shadow: 'rgba(255, 217, 239, 0.48)'
-      },
-      {
-        top: '#1d2946',
-        bottom: '#111426',
-        logo: '#fff4fb',
-        shadow: 'rgba(255, 224, 243, 0.52)'
-      }
+    const centerColors = [
+      '#f7d774',
+      '#fff1a8',
+      '#ffd166',
+      '#ffe082'
     ];
 
     const flowers = document.querySelectorAll('.flower');
-    const logo = document.querySelector('.logo');
-    const root = document.documentElement;
+    let colorOffset = 0;
 
-    let paletteIndex = 0;
-
-    function applyScenePalette() {
-      const flowerPalette = flowerPalettes[paletteIndex];
-      const backgroundPalette = backgroundPalettes[paletteIndex];
-
+    function updateFlowerColors() {
       flowers.forEach((flower, flowerIndex) => {
         const petalColor =
-          flowerPalette.petals[flowerIndex % flowerPalette.petals.length];
+          flowerColors[(flowerIndex + colorOffset) % flowerColors.length];
+
         const centerColor =
-          flowerPalette.centers[flowerIndex % flowerPalette.centers.length];
+          centerColors[(flowerIndex + colorOffset) % centerColors.length];
 
         flower.querySelectorAll('.petal').forEach((petal) => {
           petal.setAttribute('fill', petalColor);
@@ -389,21 +323,14 @@
         });
       });
 
-      root.style.setProperty('--current-bg-top', backgroundPalette.top);
-      root.style.setProperty('--current-bg-bottom', backgroundPalette.bottom);
-      logo.style.color = backgroundPalette.logo;
-      logo.style.textShadow =
-        `0 2px 18px ${backgroundPalette.shadow}`;
-
-      paletteIndex = (paletteIndex + 1) % flowerPalettes.length;
+      colorOffset = (colorOffset + 1) % flowerColors.length;
     }
 
-    // Start with the first palette immediately.
-    applyScenePalette();
+    // Apply eight different flower colors immediately.
+    updateFlowerColors();
 
-    // Change flower colors and move the background gradually
-    // from daylight to nighttime every 5 seconds.
-    setInterval(applyScenePalette, 5000);
+    // Rotate every flower to the next color every 10 seconds.
+    setInterval(updateFlowerColors, 10000);
   </script>
 </body>
 </html>
